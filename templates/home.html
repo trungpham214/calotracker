@@ -1,0 +1,73 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+    <script src="{% static 'js/home.js' %}" defer></script>
+    <script src="{% static 'js/calculator.js' %}" defer></script>
+
+    <title>Tracker</title>
+</head>
+<body>
+    <div class="container">
+        <div class="lanes">
+            <div class="swim-lane" id="protein-lane">
+                <h3>Protein</h3>
+                {% for ingre in ingres %}
+                {% if ingre.type == "Protein" %}
+                <div class="ingre" draggable="true">
+                    <p>{{ingre.name}}</p>
+                    <input type="text" name="" class="input" value="0">
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            
+            <div class="swim-lane" id="carb-lane">
+                <h3>Carb</h3>
+                {% for ingre in ingres %}
+                {% if ingre.type == "Carb" %}
+                <div class="ingre" id ="rice" draggable="true">
+                    <p>{{ingre.name}}</p>
+                    <input type="text" name="" class="input" value="0">
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="swim-lane" id="meal-lane">
+                <h3>Meal</h3>
+                <div class="display-box">
+                    <p class="sum" id="sum-calo">0</p>
+                    <p class="sum" id="sum-carb">0</p>
+                    <p class="sum" id="sum-fat">0</p>
+                    <p class="sum" id="sum-protein">0</p>
+                </div>
+
+                <button type="submit" id="clr">Clear</button>
+                <div class="ingre">
+                    <p>type</p>
+                    <input list="browsers">
+                    <datalist id="browsers">
+                        <option value="Breakfast">
+                        <option value="Lunch">
+                        <option value="Dinner">
+                        <option value="Snack">
+                    </datalist>
+                </div>
+                <div class="ingre">
+                    <p>date</p>
+                    <input type="date" id="date" name="meal-date"/>
+                </div>
+                
+                <button type="submit" id="add">Add</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
