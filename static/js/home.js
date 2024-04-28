@@ -1,5 +1,5 @@
-const draggables = document.querySelectorAll(".ingre");
-const droppables = document.querySelectorAll("#meal-lane");
+const ingres = document.querySelectorAll(".ingre");
+const meal_zone = document.querySelectorAll("#meal-lane");
 let existingClone = false;
 
 const displaycalo = document.getElementById("sum-calo");
@@ -7,21 +7,21 @@ const displaycarb = document.getElementById("sum-carb");
 const displayfat = document.getElementById("sum-fat");
 const displayprotein = document.getElementById("sum-protein");
 
-let inmealingre = [];
+let ingre_in_meal = [];
 
 let inputs = document.querySelectorAll(".input");
 
-draggables.forEach((task) => {
-    task.addEventListener("dragstart", () => {
-        task.classList.add("is-dragging");
+ingres.forEach((ingre) => {
+    ingre.addEventListener("dragstart", () => {
+        ingre.classList.add("is-dragging");
         existingClone = false;
     });
-    task.addEventListener("dragend", () => {
-        task.classList.remove("is-dragging");
+    ingre.addEventListener("dragend", () => {
+        ingre.classList.remove("is-dragging");
     });
 });
 
-droppables.forEach((zone) => {
+meal_zone.forEach((zone) => {
     zone.addEventListener("dragover", (e) => {
         e.preventDefault();
         const curTask = document.querySelector(".is-dragging");
@@ -29,16 +29,16 @@ droppables.forEach((zone) => {
         if (!existingClone) {
             const clone = curTask.cloneNode(true);
             //   clone.classList.add("drag-clone");
-            if (inmealingre.includes(clone.id)) {
+            if (ingre_in_meal.includes(clone.id)) {
               clone.classList.remove("is-dragging");
-              
+
             } else {
               clone.classList.add("in-meal");
               clone.classList.remove("is-dragging");
               clone.addEventListener("input", (e) => {
                   update();
               });
-              inmealingre.push(clone.id)
+              ingre_in_meal.push(clone.id)
               zone.appendChild(clone);
               existingClone = true;
             }

@@ -21,11 +21,28 @@ def register(request):
         else:
             user = User.objects.create_user(username=username, password=password)
             user.save()
-            return redirect('login')
+            auth.login(request, user)
+            return redirect('/')
     else:
         return render(request, 'register.html')
 
 def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        user = auth.authenticate(username=username, password=password)
 
+        if user is not None:
+            auth.login(request, user)
+            return redirect('/')
+        else:
+            messages.info(request, 'User not exists. Please sign up!')
+            return redirect('login')
+    else:    
+        return render(request, 'login.html')
     
-    return render(request, 'login.html')
+
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
