@@ -7,13 +7,14 @@ const displaycarb = document.getElementById("sum-carb");
 const displayfat = document.getElementById("sum-fat");
 const displayprotein = document.getElementById("sum-protein");
 
+let inmealingre = [];
+
 let inputs = document.querySelectorAll(".input");
 
 draggables.forEach((task) => {
     task.addEventListener("dragstart", () => {
         task.classList.add("is-dragging");
         existingClone = false;
-        console.log(task.id);
     });
     task.addEventListener("dragend", () => {
         task.classList.remove("is-dragging");
@@ -28,13 +29,19 @@ droppables.forEach((zone) => {
         if (!existingClone) {
             const clone = curTask.cloneNode(true);
             //   clone.classList.add("drag-clone");
-            clone.classList.add("in-meal");
-            clone.classList.remove("is-dragging");
-            clone.addEventListener("input", (e) => {
-                update();
-            });
-            zone.appendChild(clone);
-            existingClone = true;
+            if (inmealingre.includes(clone.id)) {
+              clone.classList.remove("is-dragging");
+              
+            } else {
+              clone.classList.add("in-meal");
+              clone.classList.remove("is-dragging");
+              clone.addEventListener("input", (e) => {
+                  update();
+              });
+              inmealingre.push(clone.id)
+              zone.appendChild(clone);
+              existingClone = true;
+            }
         }
         update();
     });
@@ -55,8 +62,6 @@ function update() {
 
         display(parseInt(calo), parseInt(carb), parseInt(fat), parseInt(protein));
     });
-
-    
 }
 
 function display(calo, carb, fat, protein) {
