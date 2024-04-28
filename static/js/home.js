@@ -20,49 +20,48 @@ draggables.forEach((task) => {
     });
 });
 
-
 droppables.forEach((zone) => {
-  zone.addEventListener("dragover", (e) => {
-    e.preventDefault();
-    const curTask = document.querySelector(".is-dragging");
+    zone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        const curTask = document.querySelector(".is-dragging");
 
-    if (!existingClone) {
-      const clone = curTask.cloneNode(true);
-    //   clone.classList.add("drag-clone");
-      clone.classList.add("in-meal");
-      clone.classList.remove("is-dragging");
-        clone.addEventListener("input", (e) =>{
+        if (!existingClone) {
+            const clone = curTask.cloneNode(true);
+            //   clone.classList.add("drag-clone");
+            clone.classList.add("in-meal");
+            clone.classList.remove("is-dragging");
+            clone.addEventListener("input", (e) => {
+                update();
+            });
+            zone.appendChild(clone);
+            existingClone = true;
+        }
         update();
-    })
-      zone.appendChild(clone);
-      existingClone = true;
-    }
-    update();
-    
-  });
+    });
 });
 
-
 function update() {
-    let values = document.querySelectorAll(".ingre.in-meal .input");
-
-    // e.preventDefault();
-    let sumcalo = 0;
-    let sumcarb = 0;
-    let sumfat = 0;
-    let sumprotein = 0;
-
-
+    let values = document.querySelectorAll(".ingre.in-meal"); // a div with class ingre in-meal
+    let calo = 0;
+    let carb = 0;
+    let fat = 0;
+    let protein = 0;
     values.forEach((value) => {
-        sumcalo += parseInt(value.value);
+        let input = value.querySelector(".input").value / 100;
+        protein += value.querySelector(".protein").value * input;
+        fat += value.querySelector(".fat").value * input;
+        carb += value.querySelector(".carb").value * input;
+        calo += value.querySelector(".calo").value * input;
+
+        display(parseInt(calo), parseInt(carb), parseInt(fat), parseInt(protein));
     });
 
-    displaycalo.innerHTML = sumcalo;
-    displaycarb.innerHTML = sum;
-    displayfat.innerHTML = sum;
-    displayprotein.innerHTML = sum;
-
+    
 }
 
-
-
+function display(calo, carb, fat, protein) {
+    displaycalo.innerHTML = calo;
+    displaycarb.innerHTML = carb;
+    displayfat.innerHTML = fat;
+    displayprotein.innerHTML = protein;
+}
