@@ -21,11 +21,11 @@
                 {% if ingre.type == "Protein" %}
                 <div id={{ingre.name}} class="ingre" draggable="true">
                     <p>{{ingre.name}}</p>
-                    <input type="text" name="" class="input" value="0">
-                    <input type="hidden" name="" class="calo" value={{ingre.calo}}>
-                    <input type="hidden" name="" class="carb" value={{ingre.carb}}>
-                    <input type="hidden" name="" class="fat" value={{ingre.fat}}>
-                    <input type="hidden" name="" class="protein" value={{ingre.protein}}>
+                    <input type="text" name="a" class="input" value="0">
+                    <input type="hidden" name="b" class="calo" value={{ingre.calo}}>
+                    <input type="hidden" name="c" class="carb" value={{ingre.carb}}>
+                    <input type="hidden" name="d" class="fat" value={{ingre.fat}}>
+                    <input type="hidden" name="e" class="protein" value={{ingre.protein}}>
                 </div>
                 {% endif %}
                 {% endfor %}
@@ -34,10 +34,14 @@
             <div class="swim-lane" id="carb-lane">
                 <h3>Carb</h3>
                 {% for ingre in ingres %}
-                {% if ingre.type == "Carb" %}ac
-                <div class="ingre" id ="rice" draggable="true">
+                {% if ingre.type == "Carb" %}
+                <div id={{ingre.name}} class="ingre" draggable="true">
                     <p>{{ingre.name}}</p>
                     <input type="text" name="" class="input" value="0">
+                    <input type="hidden" name="" class="calo" value={{ingre.calo}}>
+                    <input type="hidden" name="" class="carb" value={{ingre.carb}}>
+                    <input type="hidden" name="" class="fat" value={{ingre.fat}}>
+                    <input type="hidden" name="" class="protein" value={{ingre.protein}}>
                 </div>
                 {% endif %}
                 {% endfor %}
