@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Ingredient
+from .models import Ingredient, Meal
+from django.http import HttpResponse
 
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
@@ -46,3 +47,24 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('/')
+
+def send(request):
+    user = request.POST['user']
+    date = request.POST['date']
+    type = request.POST['type']
+    calo = request.POST['calo']
+    carb = request.POST['carb']
+    fat = request.POST['fat']
+    protein = request.POST['protein']
+
+    new_meal = Meal.objects.create(
+        user=user,
+        date=date,
+        type=type,
+        calo=calo,
+        carb=carb,
+        fat=fat,
+        protein=protein
+    )
+    new_meal.save()
+    return HttpResponse(f'You added {calo} calories meal')

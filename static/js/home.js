@@ -1,15 +1,21 @@
 const ingres = document.querySelectorAll(".ingre");
 const meal_zone = document.querySelectorAll("#meal-lane");
-let existingClone = false;
 
 const displaycalo = document.getElementById("sum-calo");
 const displaycarb = document.getElementById("sum-carb");
 const displayfat = document.getElementById("sum-fat");
 const displayprotein = document.getElementById("sum-protein");
 
-let ingre_in_meal = [];
+let existingClone = false;
 
+let ingre_in_meal = [];
 let inputs = document.querySelectorAll(".input");
+
+//set date
+date = new Date();
+date = date.toISOString().substring(0,10);
+document.getElementById("date").value=date;
+
 
 ingres.forEach((ingre) => {
     ingre.addEventListener("dragstart", () => {
@@ -65,8 +71,25 @@ function update() {
 }
 
 function display(calo, carb, fat, protein) {
-    displaycalo.innerHTML = calo;
-    displaycarb.innerHTML = carb;
-    displayfat.innerHTML = fat;
-    displayprotein.innerHTML = protein;
+    let date = new Date()
+    displaycalo.setAttribute('value', calo);
+    displaycarb.value = carb;
+    displayfat.value = fat;
+    displayprotein.value = protein;
+}
+
+//clear button
+const clr = document.getElementById("clr");
+const sums = document.querySelectorAll(".sum")
+
+clr.addEventListener("click", clear);
+
+function clear() {
+    let ingres = document.querySelectorAll(".ingre.in-meal");
+
+    ingres.forEach((ingre) => {
+        ingre.parentNode.removeChild(ingre);
+    });    
+
+    ingre_in_meal = [];
 }

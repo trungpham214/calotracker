@@ -82,11 +82,16 @@
 
 .display-box {
     display: flex;
-    justify-content: space-between;
+    align-items: flex-start;
+    justify-content: start;
 
     background-color: white;
 
     padding: 12px;
     border-radius: 4px;
   
+}
+
+.sum {
+    width: 100px;
 }

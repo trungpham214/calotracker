@@ -9,6 +9,9 @@
 
     <script src="{% static 'js/home.js' %}" defer></script>
     <script src="{% static 'js/calculator.js' %}" defer></script>
+    <script src="{% static 'js/addmeal.js' %}" defer></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <title>Tracker</title>
 </head>
@@ -21,7 +24,6 @@
         <h1>Get started</h1>
         <a href="login">Login or signup</a>
         {% endif %}
-        
     </div>
     <div class="container">
         <div class="lanes">
@@ -59,33 +61,34 @@
 
             <div class="swim-lane" id="meal-lane">
                 <h3>Meal</h3>
-                <div class="display-box">
-                    <p class="sum" id="sum-calo">0</p>
-                    <p class="sum" id="sum-carb">0</p>
-                    <p class="sum" id="sum-fat">0</p>
-                    <p class="sum" id="sum-protein">0</p>
-                </div>
-
-                <button type="submit" id="clr">Clear</button>
-                <div class="ingre">
+                <form id="meal-form">
+                    {% csrf_token %}
+                    <p>name</p>
+                    <input type="text" name="username" id="username" value={{user.username}} required>
+                    <p>date</p>
+                    <input type="date" id="date" required/>
                     <p>type</p>
-                    <input list="browsers">
+                    <input type="text" list="browsers" id="type" required>
                     <datalist id="browsers">
                         <option value="Breakfast">
                         <option value="Lunch">
                         <option value="Dinner">
                         <option value="Snack">
                     </datalist>
-                </div>
-                <div class="ingre">
-                    <p>date</p>
-                    <input type="date" id="date" name="meal-date"/>
-                </div>
-                
-                <button type="submit" id="add">Add</button>
+                    <p>calo</p>
+                    <input class="sum" id="sum-calo" required></input>
+                    <p>carb</p>
+                    <input class="sum" id="sum-carb" required></input>
+                    <p>fat</p>
+                    <input class="sum" id="sum-fat" required></input>
+                    <p>protein</p>
+                    <input class="sum" id="sum-protein" required></input>
+                    <input type="submit" id="add" value="add to meal"></input>
+                </from>                
             </div>
+            <button type="button" id="clr">Clear</button>
+
         </div>
     </div>
-
 </body>
 </html>
