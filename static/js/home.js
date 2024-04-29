@@ -72,7 +72,7 @@ function update() {
 
 function display(calo, carb, fat, protein) {
     let date = new Date()
-    displaycalo.setAttribute('value', calo);
+    displaycalo.value = calo;
     displaycarb.value = carb;
     displayfat.value = fat;
     displayprotein.value = protein;
@@ -92,4 +92,28 @@ function clear() {
     });    
 
     ingre_in_meal = [];
+    display(null, null, null, null);
 }
+
+$(document).on('submit','#meal-form', function(e){
+    e.preventDefault();
+
+    $.ajax({
+        type:'POST',
+        url:'/send',
+        data: {
+            user:$('#username').val(),
+            date:$('#date').val(),
+            type:$('#type').val(),
+            calo:$('#sum-calo').val(),
+            carb:$('#sum-carb').val(),
+            fat:$('#sum-fat').val(),
+            protein:$('#sum-protein').val(),
+            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        },
+        success: function(data) {
+            alert(data)
+        }
+    });
+    clear();
+});

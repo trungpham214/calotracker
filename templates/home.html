@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 
     <script src="{% static 'js/home.js' %}" defer></script>
-    <script src="{% static 'js/calculator.js' %}" defer></script>
-    <script src="{% static 'js/addmeal.js' %}" defer></script>
+
+    <!-- <script src="{% static 'js/addmeal.js' %}" defer></script> -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
@@ -85,8 +85,10 @@
                     <input class="sum" id="sum-protein" required></input>
                     <input type="submit" id="add" value="add to meal"></input>
                 </from>                
+
+                <button type="button" id="clr">Clear</button>
+
             </div>
-            <button type="button" id="clr">Clear</button>
 
         </div>
     </div>
