@@ -9,7 +9,12 @@ from django.contrib import messages
 # Create your views here.
 def home(request):
     ingres = Ingredient.objects.all()
-    return render(request, 'home.html', {'ingres' : ingres})
+    meals = Meal.objects.all()
+    return render(request, 'home.html', {
+        'ingres' : ingres,
+        'meals' : meals
+    
+    })
 
 def register(request):
     if request.method == 'POST':
@@ -67,4 +72,16 @@ def send(request):
         protein=protein
     )
     new_meal.save()
-    return HttpResponse(f'You added {calo} calories meal')
+    
+    # return HttpResponse(f'You added {calo} calories meal')
+    return redirect('/')
+
+
+def delete(request):
+    mealid = request.POST['meal-id']
+
+    # deleted_meal = Meal.objects.get(id=mealid)
+    # deleted_meal.delete()
+    Meal.objects.filter(id=mealid).delete()
+
+    return redirect('/')

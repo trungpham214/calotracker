@@ -11,6 +11,7 @@ class Ingredient(models.Model):
     protein = models.IntegerField(null=True, blank=True)
 
 class Meal(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.CharField(max_length=100, blank=True)
     date = models.DateField(default=datetime.now)
     type = models.CharField(max_length=100, blank=True)

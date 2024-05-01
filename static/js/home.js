@@ -16,7 +16,7 @@ date = new Date();
 date = date.toISOString().substring(0,10);
 document.getElementById("date").value=date;
 
-
+//drag and drop function
 ingres.forEach((ingre) => {
     ingre.addEventListener("dragstart", () => {
         ingre.classList.add("is-dragging");
@@ -95,6 +95,7 @@ function clear() {
     display(null, null, null, null);
 }
 
+//add meal to database
 $(document).on('submit','#meal-form', function(e){
     e.preventDefault();
 
@@ -112,8 +113,10 @@ $(document).on('submit','#meal-form', function(e){
             csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
         },
         success: function(data) {
-            alert(data)
+            if(!alert('reload to see the new meal')){window.location.reload();}
         }
     });
     clear();
 });
+
+
