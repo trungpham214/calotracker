@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
 
+from django.http import JsonResponse
+from .serializers import TrackerSerializer
 
 # Create your views here.
 def home(request):
@@ -80,8 +82,14 @@ def send(request):
 def delete(request):
     mealid = request.POST['meal-id']
 
-    # deleted_meal = Meal.objects.get(id=mealid)
-    # deleted_meal.delete()
     Meal.objects.filter(id=mealid).delete()
 
     return redirect('/')
+
+def get_meal(request, format=None):
+    #get all the meals
+    #serialize the meals
+    #return json response
+    meals = Meal.objects.all()
+    serializer = TrackerSerializer(meals, many=True)
+    return JsonResponse({'meals': serializer.data})
